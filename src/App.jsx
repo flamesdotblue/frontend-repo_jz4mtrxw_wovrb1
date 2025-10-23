@@ -1,28 +1,40 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+import HeroCover from './components/HeroCover';
+import SkeuoClock from './components/SkeuoClock';
+import ControlBar from './components/ControlBar';
+import InfoPanel from './components/InfoPanel';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showSeconds, setShowSeconds] = useState(true);
+  const [use24h, setUse24h] = useState(false);
+  const now = new Date();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen w-full bg-black text-white">
+      <HeroCover />
+
+      <main className="relative -mt-12 md:-mt-20 z-10">
+        <div className="mx-auto max-w-5xl px-4">
+          <section className="flex flex-col items-center justify-center gap-6">
+            <div className="mt-6" />
+            <SkeuoClock showSeconds={showSeconds} />
+            <ControlBar
+              showSeconds={showSeconds}
+              setShowSeconds={setShowSeconds}
+              use24h={use24h}
+              setUse24h={setUse24h}
+            />
+            <InfoPanel now={now} use24h={use24h} />
+            <div className="h-14" />
+          </section>
         </div>
-      </div>
+      </main>
+
+      <footer className="py-10 text-center text-zinc-500">
+        Crafted with a love for tactile interfaces.
+      </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
